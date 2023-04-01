@@ -6,9 +6,9 @@ import {
 import 'react-notifications/lib/notifications.css';
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import Filter from './Filter/Filter';
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
+import Filter from './Filter';
 
 class App extends Component {
   state = {
@@ -49,15 +49,25 @@ class App extends Component {
     return visibleContacts;
   };
 
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+    console.log('mm');
+  };
+
   render() {
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm saveContactFunc={this.saveContact} />
-        <NotificationContainer />
         <h2>Contacts</h2>
         <Filter value={this.state.filter} changeFilter={this.changeFilter} />
-        <ContactList contacts={this.filterContactsList()} />
+        <ContactList
+          contacts={this.filterContactsList()}
+          onDeleteContact={this.deleteContact}
+        />
+        <NotificationContainer />
       </div>
     );
   }
