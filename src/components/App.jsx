@@ -1,16 +1,66 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import React from 'react';
+import {
+  NotificationManager,
+  NotificationContainer,
+} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+import { Component } from 'react';
+import { nanoid } from 'nanoid';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
+
+class App extends Component {
+  state = {
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
+  };
+
+  saveContact = data => {
+    const { name, number } = data;
+    if (this.state.contacts.some(el => el.name === data.name)) {
+      NotificationManager.info(`${data.name} is already in contacts.`);
+    } else {
+      this.setState(prevState => ({
+        contacts: [
+          { name: name, number: number, id: nanoid() },
+          ...prevState.contacts,
+        ],
+      }));
+    }
+  };
+
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  filterContactsList = () => {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    const visibleContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+    return visibleContacts;
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm saveContactFunc={this.saveContact} />
+        <NotificationContainer />
+        <h2>Contacts</h2>
+        <Filter value={this.state.filter} changeFilter={this.changeFilter} />
+        <ContactList contacts={this.filterContactsList()} />
+      </div>
+    );
+  }
+}
+
+export default App;
