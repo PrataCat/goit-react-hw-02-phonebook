@@ -69,8 +69,8 @@ img {
 }
 
 :root {
-  --primary-color: #8f9ba8;
-  --secondary-color: #e7ecf2;
+  --accent-color-dark: #2b207d;
+  --accent-color-light: #7da2ff;
   --primaru-text-color: #122236;
   --secondary-bg-color: #f3f6f9;
   --transaction-head: #00bcd5;
@@ -92,8 +92,8 @@ code {
 }
 
 h2 {
-  /* text-align: center; */
   margin-top: 20px;
+  margin-bottom: 10px;
   font-style: normal;
   font-weight: 700;
   font-size: 28px;
@@ -101,7 +101,6 @@ h2 {
 }
 
 h1 {
-  /* text-align: center; */
   margin-top: 20px;
   font-style: normal;
   font-weight: 700;
@@ -110,9 +109,12 @@ h1 {
 }
 
 label {
-  margin-top: 20px;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 14px;
   color: #000;
+}
+
+input {
+  margin-top: 4px;
 }

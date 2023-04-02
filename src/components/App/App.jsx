@@ -6,9 +6,10 @@ import {
 import 'react-notifications/lib/notifications.css';
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
+import ContactForm from '../ContactForm';
+import ContactList from '../ContactList';
+import Filter from '../Filter';
+import cssApp from './App.module.css';
 
 class App extends Component {
   state = {
@@ -53,12 +54,11 @@ class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
-    console.log('mm');
   };
 
   render() {
     return (
-      <div>
+      <div className={cssApp['container']}>
         <h1>Phonebook</h1>
         <ContactForm saveContactFunc={this.saveContact} />
         <h2>Contacts</h2>
